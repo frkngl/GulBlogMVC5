@@ -3,15 +3,31 @@
   "WorkspaceRootPath": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|c:\\users\\frkng_rosfpok\\onedrive\\desktop\\github\\g\u00FClblogmvc5\\views\\blogs\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|solutionrelative:g\u00FClblogmvc5\\views\\blogs\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|c:\\users\\frkng_rosfpok\\onedrive\\desktop\\github\\g\u00FClblogmvc5\\controllers\\blogscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|solutionrelative:g\u00FClblogmvc5\\controllers\\blogscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|c:\\users\\frkng_rosfpok\\onedrive\\desktop\\github\\g\u00FClblogmvc5\\views\\blogs\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|solutionrelative:g\u00FClblogmvc5\\views\\blogs\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|c:\\users\\frkng_rosfpok\\onedrive\\desktop\\github\\g\u00FClblogmvc5\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|solutionrelative:g\u00FClblogmvc5\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|c:\\users\\frkng_rosfpok\\onedrive\\desktop\\github\\g\u00FClblogmvc5\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|solutionrelative:g\u00FClblogmvc5\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|c:\\users\\frkng_rosfpok\\onedrive\\desktop\\github\\g\u00FClblogmvc5\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\g\u00FClblogmvc5\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|solutionrelative:g\u00FClblogmvc5\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|c:\\users\\frkng_rosfpok\\onedrive\\desktop\\github\\g\u00FClblogmvc5\\views\\shared\\_userlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\g\u00FClblogmvc5\\views\\shared\\_userlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{5FAD7B52-835D-469F-AF2C-ECDB0FDCB9B4}|G\u00FClBlogMVC5\\G\u00FClBlogMVC5.csproj|solutionrelative:g\u00FClblogmvc5\\views\\shared\\_userlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -27,19 +43,71 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Detail.cshtml",
+              "DocumentMoniker": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Blogs\\Detail.cshtml",
+              "RelativeDocumentMoniker": "G\u00FClBlogMVC5\\Views\\Blogs\\Detail.cshtml",
+              "ToolTip": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Blogs\\Detail.cshtml",
+              "RelativeToolTip": "G\u00FClBlogMVC5\\Views\\Blogs\\Detail.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-16T11:32:14.317Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RouteConfig.cs",
+              "DocumentMoniker": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\App_Start\\RouteConfig.cs",
+              "RelativeDocumentMoniker": "G\u00FClBlogMVC5\\App_Start\\RouteConfig.cs",
+              "ToolTip": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\App_Start\\RouteConfig.cs",
+              "RelativeToolTip": "G\u00FClBlogMVC5\\App_Start\\RouteConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T11:09:22.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Blogs\\Index.cshtml",
+              "RelativeDocumentMoniker": "G\u00FClBlogMVC5\\Views\\Blogs\\Index.cshtml",
+              "ToolTip": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Blogs\\Index.cshtml",
+              "RelativeToolTip": "G\u00FClBlogMVC5\\Views\\Blogs\\Index.cshtml",
+              "ViewState": "AgIAALUAAAAAAAAAAAAAAMYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-16T11:05:29.613Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BlogsController.cs",
+              "DocumentMoniker": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Controllers\\BlogsController.cs",
+              "RelativeDocumentMoniker": "G\u00FClBlogMVC5\\Controllers\\BlogsController.cs",
+              "ToolTip": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Controllers\\BlogsController.cs",
+              "RelativeToolTip": "G\u00FClBlogMVC5\\Controllers\\BlogsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T11:05:15.97Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "G\u00FClBlogMVC5\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "G\u00FClBlogMVC5\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-05-16T10:52:10.546Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "G\u00FClBlogMVC5\\Controllers\\HomeController.cs",
@@ -52,13 +120,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "_UserLayout.cshtml",
               "DocumentMoniker": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Shared\\_UserLayout.cshtml",
               "RelativeDocumentMoniker": "G\u00FClBlogMVC5\\Views\\Shared\\_UserLayout.cshtml",
               "ToolTip": "C:\\Users\\frkng_rosfpok\\OneDrive\\Desktop\\GitHub\\G\u00FClBlogMVC5\\Views\\Shared\\_UserLayout.cshtml",
               "RelativeToolTip": "G\u00FClBlogMVC5\\Views\\Shared\\_UserLayout.cshtml",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-05-16T10:51:36.219Z",
               "EditorCaption": ""

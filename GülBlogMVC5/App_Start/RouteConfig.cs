@@ -20,6 +20,12 @@ namespace GülBlogMVC5
             );
 
             routes.MapRoute(
+                name: "Blogs",
+                url: "bloglar",
+                defaults: new { controller = "Blogs", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

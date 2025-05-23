@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GulBlogMVC5Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TBLBLOGS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BLOGTITLE" Type="nvarchar(max)" />
+    <Property Name="BLOGDES" Type="nvarchar(max)" />
+    <Property Name="BLOGPIC" Type="nvarchar(max)" />
+    <Property Name="CATEGORYID" Type="int" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="DATE" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBLCATEGORY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CATEGORYNAME" Type="nvarchar(max)" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ROLENAME" Type="nvarchar(max)" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="TBLUSERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAMEANDSURNAME" Type="nvarchar(max)" />
+    <Property Name="PASS" Type="nvarchar(max)" />
+    <Property Name="PICTURE" Type="nvarchar(max)" />
+    <Property Name="ROLEID" Type="int" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="USERNAME" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_TBLBLOGS_TBLCATEGORY">
+    <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />
+    <End Role="TBLBLOGS" Type="Self.TBLBLOGS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLCATEGORY">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLBLOGS">
+        <PropertyRef Name="CATEGORYID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLBLOGS_TBLUSERS">
+    <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="0..1" />
+    <End Role="TBLBLOGS" Type="Self.TBLBLOGS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLBLOGS">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLUSERS_TBLROLE">
+    <End Role="TBLROLE" Type="Self.TBLROLE" Multiplicity="0..1" />
+    <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLROLE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLUSERS">
+        <PropertyRef Name="ROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GulBlogMVC5ModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLBLOGS" EntityType="Self.TBLBLOGS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLROLE" EntityType="Self.TBLROLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLUSERS" EntityType="Self.TBLUSERS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TBLBLOGS_TBLCATEGORY" Association="Self.FK_TBLBLOGS_TBLCATEGORY">
+      <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
+      <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLBLOGS_TBLUSERS" Association="Self.FK_TBLBLOGS_TBLUSERS">
+      <End Role="TBLUSERS" EntitySet="TBLUSERS" />
+      <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLUSERS_TBLROLE" Association="Self.FK_TBLUSERS_TBLROLE">
+      <End Role="TBLROLE" EntitySet="TBLROLE" />
+      <End Role="TBLUSERS" EntitySet="TBLUSERS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

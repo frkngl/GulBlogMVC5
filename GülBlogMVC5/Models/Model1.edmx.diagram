@@ -5,14 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6d62e4d60fd54960b34488b8125bf5de" Name="Diagram1">
-        <EntityTypeShape EntityType="GulBlogMVC5Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLBLOGS" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLCATEGORY" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLROLE" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLUSERS" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" ManuallyRouted="false" />
-        <AssociationConnector Association="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" ManuallyRouted="false" />
-        <AssociationConnector Association="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GulBlogMVC5Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLBLOGS" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLCATEGORY" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLCONTACT" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLROLE" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="GulBlogMVC5Model.TBLUSERS" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" />
+        <AssociationConnector Association="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" />
+        <AssociationConnector Association="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

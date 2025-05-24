@@ -151,6 +151,9 @@
     <Compile Include="Models\TBLCATEGORY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBLCONTACT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBLROLE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

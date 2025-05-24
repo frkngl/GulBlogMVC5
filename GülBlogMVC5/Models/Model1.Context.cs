@@ -28,6 +28,7 @@ namespace GülBlogMVC5.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TBLBLOGS> TBLBLOGS { get; set; }
         public virtual DbSet<TBLCATEGORY> TBLCATEGORY { get; set; }
+        public virtual DbSet<TBLCONTACT> TBLCONTACT { get; set; }
         public virtual DbSet<TBLROLE> TBLROLE { get; set; }
         public virtual DbSet<TBLUSERS> TBLUSERS { get; set; }
     }

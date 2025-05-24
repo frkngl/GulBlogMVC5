@@ -1,10 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="GulBlogMVC5Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="GulBlogMVC5Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="GulBlogMVC5Model.sysdiagrams" />
+    <EntitySet Name="TBLBLOGS" EntityType="GulBlogMVC5Model.TBLBLOGS" />
+    <EntitySet Name="TBLCATEGORY" EntityType="GulBlogMVC5Model.TBLCATEGORY" />
+    <EntitySet Name="TBLCONTACT" EntityType="GulBlogMVC5Model.TBLCONTACT" />
+    <EntitySet Name="TBLROLE" EntityType="GulBlogMVC5Model.TBLROLE" />
+    <EntitySet Name="TBLUSERS" EntityType="GulBlogMVC5Model.TBLUSERS" />
+    <AssociationSet Name="FK_TBLBLOGS_TBLCATEGORY" Association="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY">
+      <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
+      <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLBLOGS_TBLUSERS" Association="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS">
+      <End Role="TBLUSERS" EntitySet="TBLUSERS" />
+      <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLUSERS_TBLROLE" Association="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE">
+      <End Role="TBLROLE" EntitySet="TBLROLE" />
+      <End Role="TBLUSERS" EntitySet="TBLUSERS" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="principal_id" Type="Int32" Nullable="false" />
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
@@ -21,9 +41,9 @@
     <Property Name="CATEGORYID" Type="Int32" />
     <Property Name="USERID" Type="Int32" />
     <Property Name="STATUS" Type="Boolean" />
-    <NavigationProperty Name="TBLCATEGORY" Relationship="Self.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLBLOGS" ToRole="TBLCATEGORY" />
-    <NavigationProperty Name="TBLUSERS" Relationship="Self.FK_TBLBLOGS_TBLUSERS" FromRole="TBLBLOGS" ToRole="TBLUSERS" />
     <Property Name="DATE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TBLCATEGORY" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLBLOGS" ToRole="TBLCATEGORY" />
+    <NavigationProperty Name="TBLUSERS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLBLOGS" ToRole="TBLUSERS" />
   </EntityType>
   <EntityType Name="TBLCATEGORY">
     <Key>
@@ -32,7 +52,22 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CATEGORYNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
-    <NavigationProperty Name="TBLBLOGS" Relationship="Self.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLBLOGS" />
+    <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLBLOGS" />
+  </EntityType>
+  <EntityType Name="TBLCONTACT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ABOUTUS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ADDRESS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NUMBER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MAP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TWITTER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="INSTAGRAM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GITHUB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LINKEDIN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TBLROLE">
     <Key>
@@ -41,7 +76,7 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ROLENAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
-    <NavigationProperty Name="TBLUSERS" Relationship="Self.FK_TBLUSERS_TBLROLE" FromRole="TBLROLE" ToRole="TBLUSERS" />
+    <NavigationProperty Name="TBLUSERS" Relationship="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE" FromRole="TBLROLE" ToRole="TBLUSERS" />
   </EntityType>
   <EntityType Name="TBLUSERS">
     <Key>
@@ -54,12 +89,12 @@
     <Property Name="ROLEID" Type="Int32" />
     <Property Name="STATUS" Type="Boolean" />
     <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="TBLBLOGS" Relationship="Self.FK_TBLBLOGS_TBLUSERS" FromRole="TBLUSERS" ToRole="TBLBLOGS" />
-    <NavigationProperty Name="TBLROLE" Relationship="Self.FK_TBLUSERS_TBLROLE" FromRole="TBLUSERS" ToRole="TBLROLE" />
+    <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLUSERS" ToRole="TBLBLOGS" />
+    <NavigationProperty Name="TBLROLE" Relationship="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE" FromRole="TBLUSERS" ToRole="TBLROLE" />
   </EntityType>
   <Association Name="FK_TBLBLOGS_TBLCATEGORY">
-    <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />
-    <End Role="TBLBLOGS" Type="Self.TBLBLOGS" Multiplicity="*" />
+    <End Type="GulBlogMVC5Model.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />
+    <End Type="GulBlogMVC5Model.TBLBLOGS" Role="TBLBLOGS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TBLCATEGORY">
         <PropertyRef Name="ID" />
@@ -70,8 +105,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TBLBLOGS_TBLUSERS">
-    <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="0..1" />
-    <End Role="TBLBLOGS" Type="Self.TBLBLOGS" Multiplicity="*" />
+    <End Type="GulBlogMVC5Model.TBLUSERS" Role="TBLUSERS" Multiplicity="0..1" />
+    <End Type="GulBlogMVC5Model.TBLBLOGS" Role="TBLBLOGS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TBLUSERS">
         <PropertyRef Name="ID" />
@@ -82,8 +117,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TBLUSERS_TBLROLE">
-    <End Role="TBLROLE" Type="Self.TBLROLE" Multiplicity="0..1" />
-    <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="*" />
+    <End Type="GulBlogMVC5Model.TBLROLE" Role="TBLROLE" Multiplicity="0..1" />
+    <End Type="GulBlogMVC5Model.TBLUSERS" Role="TBLUSERS" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TBLROLE">
         <PropertyRef Name="ID" />
@@ -93,23 +128,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="GulBlogMVC5Entities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-    <EntitySet Name="TBLBLOGS" EntityType="Self.TBLBLOGS" />
-    <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" />
-    <EntitySet Name="TBLROLE" EntityType="Self.TBLROLE" />
-    <EntitySet Name="TBLUSERS" EntityType="Self.TBLUSERS" />
-    <AssociationSet Name="FK_TBLBLOGS_TBLCATEGORY" Association="Self.FK_TBLBLOGS_TBLCATEGORY">
-      <End Role="TBLCATEGORY" EntitySet="TBLCATEGORY" />
-      <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TBLBLOGS_TBLUSERS" Association="Self.FK_TBLBLOGS_TBLUSERS">
-      <End Role="TBLUSERS" EntitySet="TBLUSERS" />
-      <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TBLUSERS_TBLROLE" Association="Self.FK_TBLUSERS_TBLROLE">
-      <End Role="TBLROLE" EntitySet="TBLROLE" />
-      <End Role="TBLUSERS" EntitySet="TBLUSERS" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

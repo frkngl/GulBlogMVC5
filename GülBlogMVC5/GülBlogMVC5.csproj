@@ -868,6 +868,7 @@
     <Content Include="Views\Blogs\Index.cshtml" />
     <Content Include="Views\Blogs\Detail.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Blogs\useCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

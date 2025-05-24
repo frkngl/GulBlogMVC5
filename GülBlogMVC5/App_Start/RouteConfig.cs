@@ -32,6 +32,12 @@ namespace GülBlogMVC5
             );
 
             routes.MapRoute(
+                name: "useCategory",
+                url: "blog/{kategoriID}/{kategoriName}",
+                defaults: new { controller = "Blogs", action = "useCategory" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

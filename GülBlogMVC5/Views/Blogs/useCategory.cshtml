@@ -1,9 +1,8 @@
 ﻿@model GülBlogMVC5.Models.Data
 @{
-    ViewBag.Title = "Bloglar";
+    ViewBag.Title = @ViewBag.categoryname;
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<script src="~/Scripts/bootstrap.bundle.min.js"></script>
 
 <style>
     .blog-card {
@@ -18,11 +17,11 @@
         }
 
     #exampleModal .btn-close {
-        display:flex;
-        width:30px;
-        height:30px;
-        align-items:center;
-        justify-content:center;
+        display: flex;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 <!--================ Hero sm Banner start =================-->
@@ -30,11 +29,11 @@
     <div class="container">
         <div class="hero-banner hero-banner--sm">
             <div class="hero-banner__content">
-                <h1>Bloglar</h1>
+                <h1>@ViewBag.categoryname</h1>
                 <nav aria-label="breadcrumb" class="banner-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="@Url.RouteUrl("Home")">Anasayfa</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Bloglar</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewBag.categoryname</li>
                     </ol>
                 </nav>
             </div>
@@ -48,7 +47,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="row" id="blog-container">
-                    
+
                 </div>
 
                 <div id="loader" style="text-align:center; display:none;">
@@ -147,26 +146,27 @@
 <!--================ End Blog Post Area =================-->
 
 
-    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
 
-    <script>
-        let page = 1;
-        let loading = false;
+<script>
+    let page = 1;
+    let loading = false;
+    let kategoriID = @Model.CurrentCategoryID;
 
-        function loadBlogs() {
-            if (loading) return;
-            loading = true;
-            $('#loader').show();
+    function loadBlogs() {
+        if (loading) return;
+        loading = true;
+        $('#loader').show();
 
-            $.get('/Blogs/LoadMoreBlogs', { page: page }, function (data) {
-                if (data.length === 0) {
-                    $(window).off('scroll');
-                    $('#loader').hide();
-                    return;
-                }
+        $.get('/Blogs/LoadMoreBlogss', { page: page, kategoriID: kategoriID }, function (data) {
+            if (data.length === 0) {
+                $(window).off('scroll');
+                $('#loader').hide();
+                return;
+            }
 
-                data.forEach((x, index) => {
-                    const blogHTML = `
+            data.forEach((x, index) => {
+                const blogHTML = `
                     <div class="col-md-6 mb-4 blog-card">
                         <div class="single-recent-blog-post card-view">
                             <div class="thumb">
@@ -187,28 +187,29 @@
                     </div>
                     `;
 
-                    const $blogElement = $(blogHTML);
-                    $('#blog-container').append($blogElement);
+                const $blogElement = $(blogHTML);
+                $('#blog-container').append($blogElement);
 
-                    // Animasyonu tetikle
-                    setTimeout(() => {
-                        $blogElement.addClass('show');
-                    }, 100 * index); // Her kart biraz gecikmeli gelsin diye
-                });
-
-                page++;
-                loading = false;
-                $('#loader').hide();
+                // Animasyonu tetikle
+                setTimeout(() => {
+                    $blogElement.addClass('show');
+                }, 100 * index); // Her kart biraz gecikmeli gelsin diye
             });
-        }
 
-        $(window).on('scroll', function () {
-            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 250) {
-                loadBlogs();
-            }
+            page++;
+            loading = false;
+            $('#loader').hide();
         });
+    }
 
-        $(document).ready(function () {
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 250) {
             loadBlogs();
-        });
-    </script>
+        }
+    });
+
+    $(document).ready(function () {
+        loadBlogs();
+    });
+</script>
+

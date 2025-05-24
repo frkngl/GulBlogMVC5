@@ -20,21 +20,45 @@ namespace GülBlogMVC5.Controllers
                 return View();
             }
 
-            var randomBlogs = db.TBLBLOGS.Where(x => x.STATUS == true).OrderBy(x=>Guid.NewGuid()).Select(x => new BlogPreviewViewModel
+            var rawRandomBlogs = db.TBLBLOGS.Where(x => x.STATUS == true).Select(x => new
+            {
+                x.BLOGPIC,
+                x.CATEGORYID,
+                x.BLOGTITLE,
+                x.TBLCATEGORY.CATEGORYNAME,
+                x.DATE
+            }).ToList();
+
+            var randomBlogs = rawRandomBlogs.OrderBy(x=>Guid.NewGuid()).Select(x => new BlogPreviewViewModel
             {
                 BLOGPIC = x.BLOGPIC,
-                CATEGORYNAME = x.TBLCATEGORY.CATEGORYNAME,
+                CATEGORYID = x.CATEGORYID ?? 0,
+                CATEGORYSEOURL = ToSeoUrl(x.CATEGORYNAME),
+                CATEGORYNAME = x.CATEGORYNAME,
                 BLOGTITLE = x.BLOGTITLE,
                 DATE = x.DATE
             }).Take(10).ToList();
 
-            var blogsList = db.TBLBLOGS.Where(x => x.STATUS == true).Select(x => new BlogPreviewViewModel
+            var rawBlogList = db.TBLBLOGS.Where(x => x.STATUS == true).Select(x => new
+            {
+                x.BLOGPIC,
+                x.CATEGORYID,
+                x.TBLUSERS.NAMEANDSURNAME,
+                x.DATE,
+                x.BLOGTITLE,
+                x.TBLCATEGORY.CATEGORYNAME,
+                x.BLOGDES
+            }).ToList();
+
+            var blogsList = rawBlogList.Select(x => new BlogPreviewViewModel
             {
                 BLOGPIC = x.BLOGPIC,
-                NAMEANDSURNAME = x.TBLUSERS.NAMEANDSURNAME,
+                CATEGORYID =x.CATEGORYID ?? 0,
+                CATEGORYSEOURL = ToSeoUrl(x.CATEGORYNAME),
+                NAMEANDSURNAME = x.NAMEANDSURNAME,
                 DATE = x.DATE,
                 BLOGTITLE = x.BLOGTITLE,
-                CATEGORYNAME = x.TBLCATEGORY.CATEGORYNAME,
+                CATEGORYNAME = x.CATEGORYNAME,
                 BLOGDES = x.BLOGDES
             }).Take(10).ToList();
 
@@ -46,22 +70,54 @@ namespace GülBlogMVC5.Controllers
                 BLOGTITLE = x.BLOGTITLE
             }).Take(5).ToList();
 
-            var populerCategory = db.TBLCATEGORY.Where(x=>x.STATUS == true).Select(x => new CategoryPreviewModels
+            var rawCategories = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new
             {
+                x.ID,
+                x.CATEGORYNAME,
+                BLOGCOUNT = x.TBLBLOGS.Count(b => b.STATUS == true)
+            }).ToList();
+
+            var populerCategories = rawCategories.Select(x => new CategoryPreviewModels
+            {
+                CATEGORYID = x.ID,
                 CATEGORYNAME = x.CATEGORYNAME,
-                BLOGCOUNT = db.TBLBLOGS.Count(b=>b.CATEGORYID == x.ID && b.STATUS == true)
-            }).OrderByDescending(x=>x.BLOGCOUNT).Take(6)
-            .ToList();
+                CATEGORYSEOURL = ToSeoUrl(x.CATEGORYNAME),
+                BLOGCOUNT = x.BLOGCOUNT
+            }).OrderByDescending(x => x.BLOGCOUNT).Take(6).ToList();
 
             var ViewModels = new Data
             {
                 RandomBlogs = randomBlogs,
                 BlogsList = blogsList,
                 PopulerBlogs = populerBlog,
-                PopulerCategories = populerCategory
+                PopulerCategories = populerCategories
             };
 
             return View(ViewModels);
+        }
+
+        public static string ToSeoUrl(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return "";
+
+            var normalized = text.ToLower()
+                .Replace("ç", "c")
+                .Replace("ğ", "g")
+                .Replace("ı", "i")
+                .Replace("ö", "o")
+                .Replace("ş", "s")
+                .Replace("ü", "u")
+                .Replace(" ", "-")
+                .Replace("'", "")
+                .Replace("\"", "")
+                .Replace(":", "")
+                .Replace(",", "")
+                .Replace(".", "")
+                .Replace("?", "")
+                .Replace("&", "")
+                .Replace("/", "-");
+
+            return normalized;
         }
     }
 }

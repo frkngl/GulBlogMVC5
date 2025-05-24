@@ -8,6 +8,8 @@ namespace GülBlogMVC5.Models
     public class BlogPreviewViewModel
     {
         public string BLOGTITLE { get; set; }
+        public int CATEGORYID { get; set; }
+        public string CATEGORYSEOURL { get; set; }
         public string BLOGDES { get; set; }
         public string BLOGPIC { get; set; }
         public string CATEGORYNAME { get; set; }

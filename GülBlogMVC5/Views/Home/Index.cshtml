@@ -29,7 +29,7 @@
                             <img class="card-img rounded-0" src="~/img/@x.BLOGPIC">
                         </div>
                         <div class="blog__slide__content">
-                            <a class="blog__slide__label" href="#">@x.CATEGORYNAME</a>
+                            <a class="blog__slide__label" href="@Url.RouteUrl("useCategory", new { kategoriID = x.CATEGORYID, kategoriName = x.CATEGORYSEOURL })">@x.CATEGORYNAME</a>
                             <h3><a href="#">@x.BLOGTITLE</a></h3>
                             <p>@TimeAgo(x.DATE.Value)</p>
                         </div>
@@ -61,7 +61,7 @@
                                         @x.BLOGTITLE
                                     </h3>
                                 </a>
-                                <p class="tag-list-inline">Kategori: <a href="#">@x.CATEGORYNAME</a></p>
+                                <p class="tag-list-inline">Kategori: <a href="@Url.RouteUrl("useCategory", new { kategoriID = x.CATEGORYID, kategoriName = x.CATEGORYSEOURL })">@x.CATEGORYNAME</a></p>
                                 <p>@(x.BLOGDES?.Length > 150 ? x.BLOGDES.Substring(0, 150) + "..." : x.BLOGDES)</p>
                                 <a class="button" href="#">Daha Fazla Oku <i class="ti-arrow-right"></i></a>
                             </div>
@@ -96,10 +96,12 @@
                         <div class="single-sidebar-widget tag_cloud_widget">
                             <h4 class="single-sidebar-widget__title">Popüler Kategoriler</h4>
                             <ul class="list">
-                                @foreach (var kategori in Model.PopulerCategories)
+                                @foreach (var x in Model.PopulerCategories)
                                 {
                                     <li>
-                                        <a href="#">@kategori.CATEGORYNAME (@kategori.BLOGCOUNT)</a>
+                                        <a href="@Url.RouteUrl("useCategory", new { kategoriID = x.CATEGORYID, kategoriName = x.CATEGORYSEOURL })">
+                                            @x.CATEGORYNAME (@x.BLOGCOUNT)
+                                        </a>
                                     </li>
                                 }
                             </ul>

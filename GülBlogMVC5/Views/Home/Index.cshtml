@@ -23,7 +23,7 @@
     <section>
         <div class="container">
             <div class="owl-carousel owl-theme blog-slider">
-                @foreach (var x in Model.Blog.OrderBy(x => Guid.NewGuid()).Select(x => new { x.ID, x.BLOGPIC, x.TBLCATEGORY.CATEGORYNAME, x.BLOGTITLE, x.DATE }))
+                @foreach (var x in Model.Blog.OrderBy(x => Guid.NewGuid()).Select(x => new { x.BLOGPIC, x.TBLCATEGORY.CATEGORYNAME, x.BLOGTITLE, x.DATE }))
                 {
                     <div class="card blog__slide text-center">
                         <div class="blog__slide__img">
@@ -45,7 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    @foreach (var x in Model.Blog.OrderByDescending(x => x.ID).Select(x => new { x.ID, x.BLOGPIC, x.TBLUSERS.NAMEANDSURNAME, x.DATE, x.BLOGTITLE, x.TBLCATEGORY.CATEGORYNAME, x.BLOGDES }).Take(10))
+                    @foreach (var x in Model.Blog.OrderByDescending(x => x.ID).Select(x => new { x.BLOGPIC, x.TBLUSERS.NAMEANDSURNAME, x.DATE, x.BLOGTITLE, x.TBLCATEGORY.CATEGORYNAME, x.BLOGDES }).Take(10))
                     {
                         <div class="single-recent-blog-post">
                             <div class="thumb">
@@ -75,7 +75,7 @@
                         <div class="single-sidebar-widget popular-post-widget">
                             <h4 class="single-sidebar-widget__title">Popüler Bloglar</h4>
                             <div class="popular-post-list">
-                                @foreach (var x in Model.Blog.Select(x => new { x.ID, x.BLOGPIC, x.TBLUSERS.NAMEANDSURNAME, x.DATE, x.BLOGTITLE }).Take(5))
+                                @foreach (var x in Model.Blog.Select(x => new { x.BLOGPIC, x.TBLUSERS.NAMEANDSURNAME, x.DATE, x.BLOGTITLE }).Take(5))
                                 {
                                     <div class="single-post-list">
                                         <div class="thumb">

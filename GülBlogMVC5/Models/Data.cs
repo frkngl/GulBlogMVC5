@@ -7,7 +7,9 @@ namespace GülBlogMVC5.Models
 {
     public class Data
     {
-        public List<TBLBLOGS> Blog { get; set; }
-        public List<TBLCATEGORY> Category { get; set; }
+        public List<BlogPreviewViewModel> RandomBlogs { get; set; }
+        public List<BlogPreviewViewModel> BlogsList { get; set; }
+        public List<BlogPreviewViewModel> PopulerBlogs { get; set; }
+        public List<CategoryPreviewModels> PopulerCategories { get; set; }
     }
 }

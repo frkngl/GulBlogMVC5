@@ -1,5 +1,4 @@
-﻿@using GülBlogMVC5.Models
-@model Data
+﻿@model GülBlogMVC5.Models.Data
 @{
     ViewBag.Title = "Anasayfa";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -23,7 +22,7 @@
     <section>
         <div class="container">
             <div class="owl-carousel owl-theme blog-slider">
-                @foreach (var x in Model.Blog.OrderBy(x => Guid.NewGuid()).Select(x => new { x.BLOGPIC, x.TBLCATEGORY.CATEGORYNAME, x.BLOGTITLE, x.DATE }))
+                @foreach (var x in Model.RandomBlogs)
                 {
                     <div class="card blog__slide text-center">
                         <div class="blog__slide__img">
@@ -45,7 +44,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    @foreach (var x in Model.Blog.OrderByDescending(x => x.ID).Select(x => new { x.BLOGPIC, x.TBLUSERS.NAMEANDSURNAME, x.DATE, x.BLOGTITLE, x.TBLCATEGORY.CATEGORYNAME, x.BLOGDES }).Take(10))
+                    @foreach (var x in Model.BlogsList)
                     {
                         <div class="single-recent-blog-post">
                             <div class="thumb">
@@ -63,7 +62,7 @@
                                     </h3>
                                 </a>
                                 <p class="tag-list-inline">Kategori: <a href="#">@x.CATEGORYNAME</a></p>
-                                <p>@x.BLOGDES.Substring(0, 150)</p>
+                                <p>@(x.BLOGDES?.Length > 150 ? x.BLOGDES.Substring(0, 150) + "..." : x.BLOGDES)</p>
                                 <a class="button" href="#">Daha Fazla Oku <i class="ti-arrow-right"></i></a>
                             </div>
                         </div>
@@ -75,7 +74,7 @@
                         <div class="single-sidebar-widget popular-post-widget">
                             <h4 class="single-sidebar-widget__title">Popüler Bloglar</h4>
                             <div class="popular-post-list">
-                                @foreach (var x in Model.Blog.Select(x => new { x.BLOGPIC, x.TBLUSERS.NAMEANDSURNAME, x.DATE, x.BLOGTITLE }).Take(5))
+                                @foreach (var x in Model.PopulerBlogs)
                                 {
                                     <div class="single-post-list">
                                         <div class="thumb">
@@ -94,28 +93,13 @@
                                 }
                             </div>
                         </div>
-                        @{
-                            GulBlogMVC5Entities db = new GulBlogMVC5Entities();
-
-                            var populercategory = db.TBLCATEGORY
-                                                  .Where(x => x.STATUS == true)
-                                                  .Select(x => new
-                                                  {
-                                                      CategoryName = x.CATEGORYNAME,
-                                                      BlogCount = db.TBLBLOGS.Count(b => b.CATEGORYID == x.ID && b.STATUS == true)
-                                                  })
-                                                  .OrderByDescending(x => x.BlogCount).Take(6)
-                                                  .ToList();
-
-                            ViewBag.populerkategori = populercategory;
-                        }
                         <div class="single-sidebar-widget tag_cloud_widget">
                             <h4 class="single-sidebar-widget__title">Popüler Kategoriler</h4>
                             <ul class="list">
-                                @foreach (var kategori in ViewBag.populerkategori)
+                                @foreach (var kategori in Model.PopulerCategories)
                                 {
                                     <li>
-                                        <a href="#">@kategori.CategoryName (@kategori.BlogCount)</a>
+                                        <a href="#">@kategori.CATEGORYNAME (@kategori.BLOGCOUNT)</a>
                                     </li>
                                 }
                             </ul>

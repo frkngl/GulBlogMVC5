@@ -126,6 +126,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BlogPreviewViewModel.cs" />
+    <Compile Include="Models\CategoryPreviewModels.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>

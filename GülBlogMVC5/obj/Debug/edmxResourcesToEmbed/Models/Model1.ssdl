@@ -22,6 +22,7 @@
     <Property Name="USERID" Type="int" />
     <Property Name="STATUS" Type="bit" />
     <Property Name="DATE" Type="datetime" />
+    <Property Name="SLUG" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="TBLCATEGORY">
     <Key>
@@ -30,6 +31,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CATEGORYNAME" Type="nvarchar(max)" />
     <Property Name="STATUS" Type="bit" />
+    <Property Name="SLUG" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="TBLCONTACT">
     <Key>
@@ -65,6 +67,10 @@
     <Property Name="ROLEID" Type="int" />
     <Property Name="STATUS" Type="bit" />
     <Property Name="USERNAME" Type="nvarchar(max)" />
+    <Property Name="FACEBOOK" Type="nvarchar(max)" />
+    <Property Name="TWITTER" Type="nvarchar(max)" />
+    <Property Name="INSTAGRAM" Type="nvarchar(max)" />
+    <Property Name="SLUG" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_TBLBLOGS_TBLCATEGORY">
     <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />

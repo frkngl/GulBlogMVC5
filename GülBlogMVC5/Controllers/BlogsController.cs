@@ -14,49 +14,16 @@ namespace GülBlogMVC5.Controllers
         Data veri = new Data();
         public ActionResult Index()
         {
-            var categoryRawList = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new
-            {
-                x.ID,
-                x.CATEGORYNAME,
-                BLOGCOUNT = x.TBLBLOGS.Count(b => b.STATUS == true)
-                }).ToList();
-
-            var categories = categoryRawList.Select(x => new CategoryPreviewModels
+            var categories = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new CategoryPreviewModels
                 {
-                    CATEGORYID = x.ID,
                     CATEGORYNAME = x.CATEGORYNAME,
-                    CATEGORYSEOURL = ToSeoUrl(x.CATEGORYNAME),
-                    BLOGCOUNT = x.BLOGCOUNT
-                }).ToList();
-
-            var populerBlog = db.TBLBLOGS.Where(x=>x.STATUS == true).Select(x => new BlogPreviewViewModel
-            {
-                BLOGPIC = x.BLOGPIC,
-                NAMEANDSURNAME = x.TBLUSERS.NAMEANDSURNAME,
-                DATE = x.DATE,
-                BLOGTITLE = x.BLOGTITLE
-            }).Take(2).ToList();
-
-            var rawCategories = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new
-                {
-                    x.ID,
-                    x.CATEGORYNAME,
+                    CATEGORYSEOURL = x.SLUG,
                     BLOGCOUNT = x.TBLBLOGS.Count(b => b.STATUS == true)
-                }).ToList();
-
-            var populerCategories = rawCategories.Select(x => new CategoryPreviewModels
-                {
-                    CATEGORYID = x.ID,
-                    CATEGORYNAME = x.CATEGORYNAME,
-                    CATEGORYSEOURL = ToSeoUrl(x.CATEGORYNAME),
-                    BLOGCOUNT = x.BLOGCOUNT
-                }).OrderByDescending(x => x.BLOGCOUNT) .Take(6).ToList();
+            }).ToList();
 
             var modelViews = new Data
             {
-                CategoriesList = categories,
-                PopulerBlogs = populerBlog,
-                PopulerCategories = populerCategories
+                CategoriesList = categories
             };
             return View(modelViews);
         }
@@ -77,61 +44,35 @@ namespace GülBlogMVC5.Controllers
                     x.DATE,
                     x.BLOGTITLE,
                     x.TBLCATEGORY.CATEGORYNAME,
-                    x.BLOGDES
+                    x.BLOGDES,
+                    x.SLUG
                 }).ToList();
 
             return Json(blogs, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult useCategory(int kategoriID, string kategoriName)
+        public ActionResult useCategory(string slug)
         {
+            var title = db.TBLCATEGORY.FirstOrDefault(x => x.SLUG == slug && x.STATUS == true);
 
-            var categoryRawList = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new
+            if (title == null)
             {
-                x.ID,
-                x.CATEGORYNAME,
+                return HttpNotFound("Kategori bulunamadı.");
+            }
+
+            int kategoriID = title.ID;
+            ViewBag.categoryname = title.CATEGORYNAME;
+
+            var categories = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new CategoryPreviewModels
+            {
+                CATEGORYNAME = x.CATEGORYNAME,
+                CATEGORYSEOURL = x.SLUG,
                 BLOGCOUNT = x.TBLBLOGS.Count(b => b.STATUS == true)
             }).ToList();
-
-            var categories = categoryRawList.Select(x => new CategoryPreviewModels
-            {
-                CATEGORYID = x.ID,
-                CATEGORYNAME = x.CATEGORYNAME,
-                CATEGORYSEOURL = ToSeoUrl(x.CATEGORYNAME),
-                BLOGCOUNT = x.BLOGCOUNT
-            }).ToList();
-
-            var usekategori = db.TBLCATEGORY.FirstOrDefault(x => x.ID == kategoriID);
-            ViewBag.categoryname = usekategori.CATEGORYNAME;
-
-            var populerBlog = db.TBLBLOGS.Where(x => x.STATUS == true).Select(x => new BlogPreviewViewModel
-            {
-                BLOGPIC = x.BLOGPIC,
-                NAMEANDSURNAME = x.TBLUSERS.NAMEANDSURNAME,
-                DATE = x.DATE,
-                BLOGTITLE = x.BLOGTITLE
-            }).Take(2).ToList();
-
-            var rawCategories = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new
-            {
-                x.ID,
-                x.CATEGORYNAME,
-                BLOGCOUNT = x.TBLBLOGS.Count(b => b.STATUS == true)
-            }).ToList();
-
-            var populerCategories = rawCategories.Select(x => new CategoryPreviewModels
-            {
-                CATEGORYID = x.ID,
-                CATEGORYNAME = x.CATEGORYNAME,
-                CATEGORYSEOURL = ToSeoUrl(x.CATEGORYNAME),
-                BLOGCOUNT = x.BLOGCOUNT
-            }).OrderByDescending(x => x.BLOGCOUNT).Take(6).ToList();
 
             var modelViews = new Data
             {
                 CategoriesList = categories,
-                PopulerBlogs = populerBlog,
-                PopulerCategories = populerCategories,
                 CurrentCategoryID = kategoriID
             };
             return View(modelViews);
@@ -161,39 +102,44 @@ namespace GülBlogMVC5.Controllers
                     x.DATE,
                     x.BLOGTITLE,
                     x.TBLCATEGORY.CATEGORYNAME,
-                    x.BLOGDES
+                    x.BLOGDES,
+                    x.SLUG
                 }).ToList();
 
             return Json(blogs, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Detail()
+        public ActionResult Detail(string slug)
         {
-            return View();
-        }
+            var blog = db.TBLBLOGS.Where(x => x.STATUS == true && x.SLUG == slug).Select(x => new BlogPreviewViewModel
+            {
+                BLOGPIC = x.BLOGPIC,
+                BLOGTITLE = x.BLOGTITLE,
+                CATEGORYNAME = x.TBLCATEGORY.CATEGORYNAME,
+                CATEGORYSEOURL = x.TBLCATEGORY.SLUG,
+                NAMEANDSURNAME = x.TBLUSERS.NAMEANDSURNAME,
+                DATE = x.DATE,
+                PICTURE = x.TBLUSERS.PICTURE,
+                BLOGDES = x.BLOGDES,
+                FACEBOOK = x.TBLUSERS.FACEBOOK,
+                TWITTER = x.TBLUSERS.TWITTER,
+                INSTAGRAM = x.TBLUSERS.INSTAGRAM,
+                BLOGSEOURL = x.SLUG
+            }).FirstOrDefault();
 
-        public static string ToSeoUrl(string text)
-        {
-            if (string.IsNullOrEmpty(text)) return "";
+            if (blog == null)
+            {
+                return HttpNotFound("Blog bulunamadı.");
+            }
 
-            var normalized = text.ToLower()
-                .Replace("ç", "c")
-                .Replace("ğ", "g")
-                .Replace("ı", "i")
-                .Replace("ö", "o")
-                .Replace("ş", "s")
-                .Replace("ü", "u")
-                .Replace(" ", "-")
-                .Replace("'", "")
-                .Replace("\"", "")
-                .Replace(":", "")
-                .Replace(",", "")
-                .Replace(".", "")
-                .Replace("?", "")
-                .Replace("&", "")
-                .Replace("/", "-");
+            ViewBag.blogtitle = blog.BLOGTITLE;
 
-            return normalized;
+            var modeLViews = new Data
+            {
+                Blog = blog
+            };
+
+            return View(modeLViews);
         }
     }
 }

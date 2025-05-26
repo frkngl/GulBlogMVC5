@@ -33,8 +33,14 @@ namespace GülBlogMVC5
 
             routes.MapRoute(
                 name: "useCategory",
-                url: "blog/{kategoriID}/{kategoriName}",
+                url: "kategori/{slug}",
                 defaults: new { controller = "Blogs", action = "useCategory" }
+            );
+
+            routes.MapRoute(
+                name: "Detail",
+                url: "blog/{slug}",
+                defaults: new { controller = "Blogs", action = "Detail" }
             );
 
             routes.MapRoute(

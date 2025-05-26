@@ -186,6 +186,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\amerika.jpeg" />
     <Content Include="img\soul.jpeg" />
+    <Content Include="img\userfoto.jpeg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

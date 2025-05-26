@@ -15,6 +15,7 @@
     <EntitySetMapping Name="TBLBLOGS">
       <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLBLOGS">
         <MappingFragment StoreEntitySet="TBLBLOGS">
+          <ScalarProperty Name="SLUG" ColumnName="SLUG" />
           <ScalarProperty Name="DATE" ColumnName="DATE" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="USERID" ColumnName="USERID" />
@@ -29,6 +30,7 @@
     <EntitySetMapping Name="TBLCATEGORY">
       <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLCATEGORY">
         <MappingFragment StoreEntitySet="TBLCATEGORY">
+          <ScalarProperty Name="SLUG" ColumnName="SLUG" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="CATEGORYNAME" ColumnName="CATEGORYNAME" />
           <ScalarProperty Name="ID" ColumnName="ID" />
@@ -63,6 +65,10 @@
     <EntitySetMapping Name="TBLUSERS">
       <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLUSERS">
         <MappingFragment StoreEntitySet="TBLUSERS">
+          <ScalarProperty Name="SLUG" ColumnName="SLUG" />
+          <ScalarProperty Name="INSTAGRAM" ColumnName="INSTAGRAM" />
+          <ScalarProperty Name="TWITTER" ColumnName="TWITTER" />
+          <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
           <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />

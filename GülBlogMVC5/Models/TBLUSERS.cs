@@ -27,6 +27,10 @@ namespace GülBlogMVC5.Models
         public Nullable<int> ROLEID { get; set; }
         public Nullable<bool> STATUS { get; set; }
         public string USERNAME { get; set; }
+        public string FACEBOOK { get; set; }
+        public string TWITTER { get; set; }
+        public string INSTAGRAM { get; set; }
+        public string SLUG { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLBLOGS> TBLBLOGS { get; set; }

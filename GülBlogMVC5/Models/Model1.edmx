@@ -27,6 +27,7 @@
           <Property Name="USERID" Type="int" />
           <Property Name="STATUS" Type="bit" />
           <Property Name="DATE" Type="datetime" />
+          <Property Name="SLUG" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TBLCATEGORY">
           <Key>
@@ -35,6 +36,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CATEGORYNAME" Type="nvarchar(max)" />
           <Property Name="STATUS" Type="bit" />
+          <Property Name="SLUG" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TBLCONTACT">
           <Key>
@@ -70,6 +72,10 @@
           <Property Name="ROLEID" Type="int" />
           <Property Name="STATUS" Type="bit" />
           <Property Name="USERNAME" Type="nvarchar(max)" />
+          <Property Name="FACEBOOK" Type="nvarchar(max)" />
+          <Property Name="TWITTER" Type="nvarchar(max)" />
+          <Property Name="INSTAGRAM" Type="nvarchar(max)" />
+          <Property Name="SLUG" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_TBLBLOGS_TBLCATEGORY">
           <End Role="TBLCATEGORY" Type="Self.TBLCATEGORY" Multiplicity="0..1" />
@@ -173,6 +179,7 @@
           <Property Name="USERID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />
           <Property Name="DATE" Type="DateTime" Precision="3" />
+          <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBLCATEGORY" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLBLOGS" ToRole="TBLCATEGORY" />
           <NavigationProperty Name="TBLUSERS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLBLOGS" ToRole="TBLUSERS" />
         </EntityType>
@@ -183,6 +190,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CATEGORYNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="STATUS" Type="Boolean" />
+          <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLBLOGS" />
         </EntityType>
         <EntityType Name="TBLCONTACT">
@@ -220,6 +228,10 @@
           <Property Name="ROLEID" Type="Int32" />
           <Property Name="STATUS" Type="Boolean" />
           <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FACEBOOK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TWITTER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="INSTAGRAM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLUSERS" ToRole="TBLBLOGS" />
           <NavigationProperty Name="TBLROLE" Relationship="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE" FromRole="TBLUSERS" ToRole="TBLROLE" />
         </EntityType>
@@ -259,7 +271,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -279,6 +291,7 @@
           <EntitySetMapping Name="TBLBLOGS">
             <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLBLOGS">
               <MappingFragment StoreEntitySet="TBLBLOGS">
+                <ScalarProperty Name="SLUG" ColumnName="SLUG" />
                 <ScalarProperty Name="DATE" ColumnName="DATE" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="USERID" ColumnName="USERID" />
@@ -293,6 +306,7 @@
           <EntitySetMapping Name="TBLCATEGORY">
             <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLCATEGORY">
               <MappingFragment StoreEntitySet="TBLCATEGORY">
+                <ScalarProperty Name="SLUG" ColumnName="SLUG" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="CATEGORYNAME" ColumnName="CATEGORYNAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -327,6 +341,10 @@
           <EntitySetMapping Name="TBLUSERS">
             <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLUSERS">
               <MappingFragment StoreEntitySet="TBLUSERS">
+                <ScalarProperty Name="SLUG" ColumnName="SLUG" />
+                <ScalarProperty Name="INSTAGRAM" ColumnName="INSTAGRAM" />
+                <ScalarProperty Name="TWITTER" ColumnName="TWITTER" />
+                <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
                 <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />

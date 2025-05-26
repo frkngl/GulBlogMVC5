@@ -42,6 +42,7 @@
     <Property Name="USERID" Type="Int32" />
     <Property Name="STATUS" Type="Boolean" />
     <Property Name="DATE" Type="DateTime" Precision="3" />
+    <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TBLCATEGORY" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLBLOGS" ToRole="TBLCATEGORY" />
     <NavigationProperty Name="TBLUSERS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLBLOGS" ToRole="TBLUSERS" />
   </EntityType>
@@ -52,6 +53,7 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CATEGORYNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="STATUS" Type="Boolean" />
+    <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLCATEGORY" ToRole="TBLBLOGS" />
   </EntityType>
   <EntityType Name="TBLCONTACT">
@@ -89,6 +91,10 @@
     <Property Name="ROLEID" Type="Int32" />
     <Property Name="STATUS" Type="Boolean" />
     <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FACEBOOK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TWITTER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="INSTAGRAM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLUSERS" ToRole="TBLBLOGS" />
     <NavigationProperty Name="TBLROLE" Relationship="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE" FromRole="TBLUSERS" ToRole="TBLROLE" />
   </EntityType>

@@ -45,10 +45,13 @@ namespace GülBlogMVC5.Controllers
                     x.BLOGTITLE,
                     x.TBLCATEGORY.CATEGORYNAME,
                     x.BLOGDES,
-                    x.SLUG
+                    x.SLUG,
+                    x.VIEWS
                 }).ToList();
 
-            return Json(blogs, JsonRequestBehavior.AllowGet);
+            var totalCount = db.TBLBLOGS.Count(x => x.STATUS == true);
+
+            return Json(new { blogs, totalCount }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult useCategory(string slug)
@@ -83,13 +86,14 @@ namespace GülBlogMVC5.Controllers
         {
             var skip = (page - 1) * pageSize;
 
-            var query = db.TBLBLOGS
-                .Where(x => x.STATUS == true);
+            var query = db.TBLBLOGS.Where(x => x.STATUS == true);
 
             if (kategoriID.HasValue)
             {
                 query = query.Where(x => x.CATEGORYID == kategoriID.Value);
             }
+
+            var totalCount = query.Count(); // Toplam aktif blog (filtreye göre)
 
             var blogs = query
                 .OrderByDescending(x => x.ID)
@@ -103,40 +107,54 @@ namespace GülBlogMVC5.Controllers
                     x.BLOGTITLE,
                     x.TBLCATEGORY.CATEGORYNAME,
                     x.BLOGDES,
-                    x.SLUG
+                    x.SLUG,
+                    x.VIEWS
                 }).ToList();
 
-            return Json(blogs, JsonRequestBehavior.AllowGet);
+            return Json(new { blogs, totalCount }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Detail(string slug)
         {
-            var blog = db.TBLBLOGS.Where(x => x.STATUS == true && x.SLUG == slug).Select(x => new BlogPreviewViewModel
-            {
-                BLOGPIC = x.BLOGPIC,
-                BLOGTITLE = x.BLOGTITLE,
-                CATEGORYNAME = x.TBLCATEGORY.CATEGORYNAME,
-                CATEGORYSEOURL = x.TBLCATEGORY.SLUG,
-                NAMEANDSURNAME = x.TBLUSERS.NAMEANDSURNAME,
-                DATE = x.DATE,
-                PICTURE = x.TBLUSERS.PICTURE,
-                BLOGDES = x.BLOGDES,
-                FACEBOOK = x.TBLUSERS.FACEBOOK,
-                TWITTER = x.TBLUSERS.TWITTER,
-                INSTAGRAM = x.TBLUSERS.INSTAGRAM,
-                BLOGSEOURL = x.SLUG
-            }).FirstOrDefault();
+            db.Database.ExecuteSqlCommand("UPDATE TBLBLOGS SET VIEWS = VIEWS + 1 WHERE SLUG = @p0", slug);
 
-            if (blog == null)
+            var blogEntity = db.TBLBLOGS .AsNoTracking().FirstOrDefault(x => x.STATUS == true && x.SLUG == slug);
+
+            if (blogEntity == null)
             {
                 return HttpNotFound("Blog bulunamadı.");
             }
+
+            var blog = new BlogPreviewViewModel
+            {
+                BLOGPIC = blogEntity.BLOGPIC,
+                BLOGTITLE = blogEntity.BLOGTITLE,
+                CATEGORYNAME = blogEntity.TBLCATEGORY.CATEGORYNAME,
+                CATEGORYSEOURL = blogEntity.TBLCATEGORY.SLUG,
+                NAMEANDSURNAME = blogEntity.TBLUSERS.NAMEANDSURNAME,
+                DATE = blogEntity.DATE,
+                PICTURE = blogEntity.TBLUSERS.PICTURE,
+                BLOGDES = blogEntity.BLOGDES,
+                FACEBOOK = blogEntity.TBLUSERS.FACEBOOK,
+                TWITTER = blogEntity.TBLUSERS.TWITTER,
+                INSTAGRAM = blogEntity.TBLUSERS.INSTAGRAM,
+                BLOGSEOURL = blogEntity.SLUG,
+                VIEWS = blogEntity.VIEWS ?? 0
+            };
+
+            var categories = db.TBLCATEGORY.Where(x=>x.STATUS == true).Select(x=>new CategoryPreviewModels
+            {
+                CATEGORYNAME = x.CATEGORYNAME,
+                CATEGORYSEOURL = x.SLUG,
+                BLOGCOUNT = x.TBLBLOGS.Count(b => b.STATUS == true)
+            }).ToList();
 
             ViewBag.blogtitle = blog.BLOGTITLE;
 
             var modeLViews = new Data
             {
-                Blog = blog
+                Blog = blog,
+                CategoriesList = categories
             };
 
             return View(modeLViews);

@@ -23,6 +23,7 @@ namespace GülBlogMVC5.Models
         public Nullable<bool> STATUS { get; set; }
         public Nullable<System.DateTime> DATE { get; set; }
         public string SLUG { get; set; }
+        public Nullable<int> VIEWS { get; set; }
     
         public virtual TBLCATEGORY TBLCATEGORY { get; set; }
         public virtual TBLUSERS TBLUSERS { get; set; }

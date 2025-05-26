@@ -19,6 +19,7 @@ namespace GülBlogMVC5.Models
         public string FACEBOOK { get; set; }
         public string TWITTER { get; set; }
         public string INSTAGRAM { get; set; }
+        public int VIEWS { get; set; }
         public DateTime? DATE { get; set; }
     }
 }

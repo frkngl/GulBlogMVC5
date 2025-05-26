@@ -15,6 +15,7 @@
     <EntitySetMapping Name="TBLBLOGS">
       <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLBLOGS">
         <MappingFragment StoreEntitySet="TBLBLOGS">
+          <ScalarProperty Name="VIEWS" ColumnName="VIEWS" />
           <ScalarProperty Name="SLUG" ColumnName="SLUG" />
           <ScalarProperty Name="DATE" ColumnName="DATE" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />

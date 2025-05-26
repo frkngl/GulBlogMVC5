@@ -23,7 +23,7 @@ namespace GülBlogMVC5.Controllers
                 BLOGSEOURL = x.SLUG,
                 CATEGORYNAME = x.TBLCATEGORY.CATEGORYNAME,
                 BLOGTITLE = x.BLOGTITLE,
-                DATE = x.DATE
+                DATE = x.DATE,
             }).Take(8).ToList();
 
             var blogsList = db.TBLBLOGS.Where(x => x.STATUS == true).OrderByDescending(x=>x.ID).Select(x => new BlogPreviewViewModel
@@ -36,7 +36,8 @@ namespace GülBlogMVC5.Controllers
                 DATE = x.DATE,
                 BLOGTITLE = x.BLOGTITLE,
                 CATEGORYNAME = x.TBLCATEGORY.CATEGORYNAME,
-                BLOGDES = x.BLOGDES
+                BLOGDES = x.BLOGDES,
+                VIEWS = x.VIEWS ?? 0
             }).Take(5).ToList();
 
             var populerBlog = db.TBLBLOGS.Where(x => x.STATUS == true).Select(x => new BlogPreviewViewModel
@@ -46,7 +47,8 @@ namespace GülBlogMVC5.Controllers
                 DATE = x.DATE,
                 BLOGTITLE = x.BLOGTITLE,
                 BLOGSEOURL = x.SLUG,
-            }).Take(5).ToList();
+                VIEWS = x.VIEWS ?? 0,
+            }).OrderByDescending(x=>x.VIEWS).Take(5).ToList();
 
             var populerCategories = db.TBLCATEGORY.Where(x => x.STATUS == true).Select(x => new CategoryPreviewModels
             {

@@ -28,6 +28,7 @@
           <Property Name="STATUS" Type="bit" />
           <Property Name="DATE" Type="datetime" />
           <Property Name="SLUG" Type="nvarchar(max)" />
+          <Property Name="VIEWS" Type="int" />
         </EntityType>
         <EntityType Name="TBLCATEGORY">
           <Key>
@@ -182,6 +183,7 @@
           <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBLCATEGORY" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLBLOGS" ToRole="TBLCATEGORY" />
           <NavigationProperty Name="TBLUSERS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLBLOGS" ToRole="TBLUSERS" />
+          <Property Name="VIEWS" Type="Int32" />
         </EntityType>
         <EntityType Name="TBLCATEGORY">
           <Key>
@@ -291,6 +293,7 @@
           <EntitySetMapping Name="TBLBLOGS">
             <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLBLOGS">
               <MappingFragment StoreEntitySet="TBLBLOGS">
+                <ScalarProperty Name="VIEWS" ColumnName="VIEWS" />
                 <ScalarProperty Name="SLUG" ColumnName="SLUG" />
                 <ScalarProperty Name="DATE" ColumnName="DATE" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />

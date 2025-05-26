@@ -50,8 +50,8 @@
 
                 </div>
 
-                <div id="loader" style="text-align:center; display:none;">
-                    <p>Yükleniyor...</p>
+                <div style="text-align:center; margin-top: 20px;">
+                    <button id="load-more" class="btn btn-primary">Daha Fazla Yükle</button>
                 </div>
             </div>
 
@@ -113,18 +113,23 @@
 
 <script>
     let page = 1;
+    let pageSize = 4;
     let loading = false;
-    let kategoriID = @Model.CurrentCategoryID;
+    let kategoriID = @Model.CurrentCategoryID; // Razor ile kategori ID'si
+    let totalLoaded = 0;
+    let totalCount = 0;
 
     function loadBlogs() {
         if (loading) return;
         loading = true;
-        $('#loader').show();
+        $('#load-more').text('Yükleniyor...').prop('disabled', true);
 
-        $.get('/Blogs/LoadMoreBlogss', { page: page, kategoriID: kategoriID }, function (data) {
+        $.get('/Blogs/LoadMoreBlogss', { page: page, pageSize: pageSize, kategoriID: kategoriID }, function (response) {
+            const data = response.blogs;
+            totalCount = response.totalCount;
+
             if (data.length === 0) {
-                $(window).off('scroll');
-                $('#loader').hide();
+                $('#load-more').hide();
                 return;
             }
 
@@ -136,43 +141,47 @@
                                 <img class="card-img rounded-0" src="/img/${x.BLOGPIC}" alt="Blog Görseli">
                                 <ul class="thumb-info">
                                     <li><a href="#"><i class="ti-user"></i> ${x.NAMEANDSURNAME}</a></li>
-                                    <li><a href="#"><i class="ti-themify-favicon"></i> 2 Comments</a></li>
+                                    <li><a href="#"><i class="ti-eye"></i> ${x.VIEWS} Görme</a></li>
                                 </ul>
                             </div>
                             <div class="details mt-20">
-                                <a href="/blog/${ x.SLUG }">
+                                <a href="/blog/${x.SLUG}">
                                     <h3>${x.BLOGTITLE}</h3>
                                 </a>
                                 <p>${x.BLOGDES?.length > 150 ? x.BLOGDES.substring(0, 150) + "..." : x.BLOGDES}</p>
-                                <a class="button" href="/blog/${ x.SLUG }">Daha Fazla Oku <i class="ti-arrow-right"></i></a>
+                                <a class="button" href="/blog/${x.SLUG}">Daha Fazla Oku <i class="ti-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
-                    `;
+                `;
 
                 const $blogElement = $(blogHTML);
                 $('#blog-container').append($blogElement);
 
-                // Animasyonu tetikle
                 setTimeout(() => {
                     $blogElement.addClass('show');
-                }, 100 * index); // Her kart biraz gecikmeli gelsin diye
+                }, 100 * index);
             });
 
+            totalLoaded += data.length;
             page++;
+
+            if (totalLoaded >= totalCount) {
+                $('#load-more').hide(); // Tüm veriler yüklendiyse butonu gizle
+            } else {
+                $('#load-more').text('Daha Fazla Yükle').prop('disabled', false);
+            }
+
             loading = false;
-            $('#loader').hide();
         });
     }
 
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 250) {
-            loadBlogs();
-        }
-    });
-
     $(document).ready(function () {
-        loadBlogs();
+        loadBlogs(); // İlk yükleme
+
+        $('#load-more').on('click', function () {
+            loadBlogs(); // Butona tıklayınca devam et
+        });
     });
 </script>
 

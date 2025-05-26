@@ -3,7 +3,17 @@
     ViewBag.Title = @ViewBag.blogtitle;
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
 
+<style>
+    #exampleModal .btn-close {
+        display: flex;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
 <!--================ Hero sm Banner start =================-->
 <section class="mb-30px">
     <div class="container">
@@ -50,7 +60,7 @@
                     <p>@Model.Blog.BLOGDES</p>
                     
                     <div class="news_d_footer flex-column flex-sm-row">
-                        <a href="#"><span class="align-middle mr-2"><i class="ti-heart"></i></span>Lily and 4 people like this</a>
+                        <a href="#"><span class="align-middle mr-2"><i class="ti-eye"></i>@Model.Blog.VIEWS Görüntülenme</span></a>
                         <a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#"><span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>06 Comments</a>
                         <div class="news_socail ml-sm-auto mt-sm-0 mt-2">
                             @if (Model.Blog.FACEBOOK != null)
@@ -222,50 +232,44 @@
             <div class="col-lg-4 sidebar-widgets">
                 <div class="widget-wrap">
                     <div class="single-sidebar-widget newsletter-widget">
-                        <h4 class="single-sidebar-widget__title">Newsletter</h4>
-                        <div class="form-group mt-30">
-                            <div class="col-autos">
-                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''"
-                                       onblur="this.placeholder = 'Enter email'">
+                        <h4 class="single-sidebar-widget__title">Blog Arayın</h4>
+                        <button class="bbtns d-block mt-20 w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">Arayınız...</button>
+                    </div>
+
+                    <div style="margin-top: 100px;" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 style="font-family: Arial, Helvetica, sans-serif;" id="exampleModalLabel">Blog Arayınız</h4>
+                                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
-                        <button class="bbtns d-block mt-20 w-100">Subcribe</button>
                     </div>
 
 
                     <div class="single-sidebar-widget post-category-widget">
-                        <h4 class="single-sidebar-widget__title">Catgory</h4>
+                        <h4 class="single-sidebar-widget__title">Kategoriler</h4>
                         <ul class="cat-list mt-20">
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Technology</p>
-                                    <p>(03)</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Software</p>
-                                    <p>(09)</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Lifestyle</p>
-                                    <p>(12)</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Shopping</p>
-                                    <p>(02)</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Food</p>
-                                    <p>(10)</p>
-                                </a>
-                            </li>
+                            @foreach (var x in Model.CategoriesList)
+                            {
+                                <li>
+                                    <a href="@Url.RouteUrl("useCategory", new { slug = x.CATEGORYSEOURL })" class="d-flex justify-content-between">
+                                        <p>@x.CATEGORYNAME</p>
+                                        <p>(@x.BLOGCOUNT)</p>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

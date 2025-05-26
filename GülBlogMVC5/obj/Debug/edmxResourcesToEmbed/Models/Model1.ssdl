@@ -23,6 +23,7 @@
     <Property Name="STATUS" Type="bit" />
     <Property Name="DATE" Type="datetime" />
     <Property Name="SLUG" Type="nvarchar(max)" />
+    <Property Name="VIEWS" Type="int" />
   </EntityType>
   <EntityType Name="TBLCATEGORY">
     <Key>

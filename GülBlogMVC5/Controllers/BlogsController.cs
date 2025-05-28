@@ -125,6 +125,9 @@ namespace GülBlogMVC5.Controllers
                 return HttpNotFound("Blog bulunamadı.");
             }
 
+            var previousPost = db.TBLBLOGS.AsNoTracking().Where(x => x.STATUS == true && x.ID < blogEntity.ID).FirstOrDefault();
+            var nextPost = db.TBLBLOGS.AsNoTracking().Where(x => x.STATUS == true && x.ID > blogEntity.ID).FirstOrDefault();
+
             var blog = new BlogPreviewViewModel
             {
                 BLOGPIC = blogEntity.BLOGPIC,
@@ -150,6 +153,8 @@ namespace GülBlogMVC5.Controllers
             }).ToList();
 
             ViewBag.blogtitle = blog.BLOGTITLE;
+            ViewBag.previousPost = previousPost;
+            ViewBag.nextPost = nextPost;
 
             var modeLViews = new Data
             {

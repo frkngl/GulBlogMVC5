@@ -82,30 +82,52 @@
 
                 <div class="navigation-area">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                            <div class="thumb">
-                                <a href="#"><img class="img-fluid" src="~/Thema/img/blog/prev.jpg" alt=""></a>
+                        @if (ViewBag.previousPost != null)
+                        {
+                            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                                <div class="thumb">
+                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.previousPost.SLUG})"><img style="width:100px; height:55px; object-fit:cover;" src="~/img/@ViewBag.previousPost.BLOGPIC"></a>
+                                </div>
+                                <div class="arrow">
+                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.previousPost.SLUG})"><span class="lnr text-white lnr-arrow-left"></span></a>
+                                </div>
+                                <div class="detials">
+                                    <p>Önceki Blog</p>
+                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.previousPost.SLUG})"><h4>@ViewBag.previousPost.BLOGTITLE</h4></a>
+                                </div>
                             </div>
-                            <div class="arrow">
-                                <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
+                        }
+                        else
+                        {
+                            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-start align-items-center">
+                                <div class="text-center ">
+                                    İlk Blog
+                                </div>
                             </div>
-                            <div class="detials">
-                                <p>Prev Post</p>
-                                <a href="#"><h4>A Discount Toner</h4></a>
+                        }
+                        @if (ViewBag.nextPost != null)
+                        {
+                            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                <div class="detials">
+                                    <p>Sonraki Blog</p>
+                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.nextPost.SLUG})"><h4>@ViewBag.nextPost.BLOGTITLE</h4></a>
+                                </div>
+                                <div class="arrow">
+                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.nextPost.SLUG})"><span class="lnr text-white lnr-arrow-right"></span></a>
+                                </div>
+                                <div class="thumb">
+                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.nextPost.SLUG})"><img style="width:100px; height:55px; object-fit:cover;"  src="~/img/@ViewBag.nextPost.BLOGPIC"></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                            <div class="detials">
-                                <p>Next Post</p>
-                                <a href="#"><h4>Cartridge Is Better</h4></a>
+                        }
+                        else
+                        {
+                            <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                <div class="text-center">
+                                    Güncel Blog
+                                </div>
                             </div>
-                            <div class="arrow">
-                                <a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
-                            </div>
-                            <div class="thumb">
-                                <a href="#"><img class="img-fluid" src="img/blog/next.jpg" alt=""></a>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="comments-area">

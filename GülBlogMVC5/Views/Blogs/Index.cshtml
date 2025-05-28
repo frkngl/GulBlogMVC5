@@ -75,8 +75,11 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    ...
+                                <div style="overflow:auto; max-height:400px;" class="modal-body">
+                                    <div class="pb-2">
+                                        <input class="w-100" type="text" placeholder="Arayınız..." id="searchInput" autocomplete="off" />
+                                    </div>
+                                    <div id="searchResults"></div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -181,6 +184,59 @@
 
             $("#load-more").on("click", function () {
                 loadBlogs();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            let debounceTimer;
+
+            $('#searchInput').on('input', function () {
+                clearTimeout(debounceTimer);
+
+                let query = $(this).val().trim();
+
+                debounceTimer = setTimeout(function () {
+                    if (query.length < 2) {
+                        $('#searchResults').empty();
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '/Blogs/Search',
+                        method: 'GET',
+                        data: { query: query },
+                        success: function (data) {
+                            let resultHtml = '';
+
+                            if (data.length === 0) {
+                                resultHtml = '<div class="text-muted p-2">Sonuç bulunamadı.</div>';
+                            } else {
+                                $.each(data, function (index, item) {
+                                    resultHtml += `
+                                        <div class="d-flex flex-column" style="margin:10px 0px;">
+                                            <a href="/blog/${item.slug}">
+                                                <div class="w-100 d-flex">
+                                                    <img style="width:150px; height:75px; object-fit:cover;" src="/img/${item.picture}" />
+                                                    <div style="margin:0px 0px 0px 8px; color:#000;">
+                                                        ${item.title}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    `;
+                                });
+                            }
+
+                            $('#searchResults').html(resultHtml);
+                        },
+                        error: function () {
+                            $('#searchResults').html('<div class="text-danger p-2">Bir hata oluştu.</div>');
+                        }
+                    });
+
+                }, 300); // 300ms debounce
             });
         });
     </script>

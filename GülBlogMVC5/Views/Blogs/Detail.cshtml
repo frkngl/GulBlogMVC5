@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <p>@Model.Blog.BLOGDES</p>
-                    
+
                     <div class="news_d_footer flex-column flex-sm-row">
                         <a href="#"><span class="align-middle mr-2"><i class="ti-eye"></i>@Model.Blog.VIEWS Görüntülenme</span></a>
                         <a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#"><span class="align-middle mr-2"><i class="ti-themify-favicon"></i></span>06 Comments</a>
@@ -73,7 +73,7 @@
                             }
                             @if (Model.Blog.INSTAGRAM != null)
                             {
-                               <a href="@Model.Blog.INSTAGRAM"><i class="fab fa-instagram"></i></a>
+                                <a href="@Model.Blog.INSTAGRAM"><i class="fab fa-instagram"></i></a>
                             }
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                                     <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.nextPost.SLUG})"><span class="lnr text-white lnr-arrow-right"></span></a>
                                 </div>
                                 <div class="thumb">
-                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.nextPost.SLUG})"><img style="width:100px; height:55px; object-fit:cover;"  src="~/img/@ViewBag.nextPost.BLOGPIC"></a>
+                                    <a href="@Url.RouteUrl("Detail", new {slug = ViewBag.nextPost.SLUG})"><img style="width:100px; height:55px; object-fit:cover;" src="~/img/@ViewBag.nextPost.BLOGPIC"></a>
                                 </div>
                             </div>
                         }
@@ -269,8 +269,11 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    ...
+                                <div style="overflow:auto; max-height:400px;" class="modal-body">
+                                    <div class="pb-2">
+                                        <input class="w-100" type="text" placeholder="Arayınız..." id="searchInput" autocomplete="off" />
+                                    </div>
+                                    <div id="searchResults"></div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -301,3 +304,58 @@
     </div>
 </section>
 <!--================ End Blog Post Area =================-->
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        let debounceTimer;
+
+        $('#searchInput').on('input', function () {
+            clearTimeout(debounceTimer);
+
+            let query = $(this).val().trim();
+
+            debounceTimer = setTimeout(function () {
+                if (query.length < 2) {
+                    $('#searchResults').empty();
+                    return;
+                }
+
+                $.ajax({
+                    url: '/Blogs/Search',
+                    method: 'GET',
+                    data: { query: query },
+                    success: function (data) {
+                        let resultHtml = '';
+
+                        if (data.length === 0) {
+                            resultHtml = '<div class="text-muted p-2">Sonuç bulunamadı.</div>';
+                        } else {
+                            $.each(data, function (index, item) {
+                                resultHtml += `
+                                      <div class="d-flex flex-column" style="margin:10px 0px;">
+                                          <a href="/blog/${item.slug}">
+                                              <div class="w-100 d-flex">
+                                                  <img style="width:150px; height:75px; object-fit:cover;" src="/img/${item.picture}" />
+                                                  <div style="margin:0px 0px 0px 8px; color:#000;">
+                                                      ${item.title}
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  `;
+                            });
+                        }
+
+                        $('#searchResults').html(resultHtml);
+                    },
+                    error: function () {
+                        $('#searchResults').html('<div class="text-danger p-2">Bir hata oluştu.</div>');
+                    }
+                });
+
+            }, 300); // 300ms debounce
+        });
+    });
+</script>

@@ -164,5 +164,24 @@ namespace GülBlogMVC5.Controllers
 
             return View(modeLViews);
         }
+
+        public JsonResult Search (string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return Json(new List<object>(), JsonRequestBehavior.AllowGet);
+            }
+
+            var result = db.TBLBLOGS.Where(x => x.STATUS == true && x.BLOGTITLE.Contains(query))
+                .OrderByDescending(x => x.ID)
+                .Take(10)
+                .Select(x => new
+                {
+                    title = x.BLOGTITLE,
+                    slug = x.SLUG,
+                    picture = x.BLOGPIC
+                }).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

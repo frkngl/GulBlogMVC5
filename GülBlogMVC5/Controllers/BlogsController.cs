@@ -120,6 +120,8 @@ namespace GülBlogMVC5.Controllers
 
             var blogEntity = db.TBLBLOGS .AsNoTracking().FirstOrDefault(x => x.STATUS == true && x.SLUG == slug);
 
+            var blogid = blogEntity?.ID ?? 0;
+
             if (blogEntity == null)
             {
                 return HttpNotFound("Blog bulunamadı.");
@@ -130,6 +132,7 @@ namespace GülBlogMVC5.Controllers
 
             var blog = new BlogPreviewViewModel
             {
+                ID = blogEntity.ID,
                 BLOGPIC = blogEntity.BLOGPIC,
                 BLOGTITLE = blogEntity.BLOGTITLE,
                 CATEGORYNAME = blogEntity.TBLCATEGORY.CATEGORYNAME,
@@ -142,7 +145,8 @@ namespace GülBlogMVC5.Controllers
                 TWITTER = blogEntity.TBLUSERS.TWITTER,
                 INSTAGRAM = blogEntity.TBLUSERS.INSTAGRAM,
                 BLOGSEOURL = blogEntity.SLUG,
-                VIEWS = blogEntity.VIEWS ?? 0
+                VIEWS = blogEntity.VIEWS ?? 0,
+                COMMENTCOUNT = db.TBLCOMMENT.Where(c => c.STATUS == true && c.BLOGID == blogid && c.USTID == null).Count()
             };
 
             var categories = db.TBLCATEGORY.Where(x=>x.STATUS == true).Select(x=>new CategoryPreviewModels
@@ -182,6 +186,48 @@ namespace GülBlogMVC5.Controllers
                     picture = x.BLOGPIC
                 }).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PartialComment(int blogID, int skip = 0, int take = 10)
+        {
+            var mainComments = db.TBLCOMMENT
+                .Where(x => x.STATUS == true && x.BLOGID == blogID && x.USTID == null)
+                .OrderBy(x => x.DATE)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+
+            var mainCommentIds = mainComments.Select(x => x.ID).ToList();
+
+            var allCommentsForBlog = db.TBLCOMMENT
+                .Where(x => x.STATUS == true && x.BLOGID == blogID)
+                .OrderBy(x => x.DATE)
+                .ToList();
+
+            var allRelatedComments = new List<GülBlogMVC5.Models.TBLCOMMENT>();
+            var commentDict = allCommentsForBlog.ToDictionary(x => x.ID);
+
+            foreach (var main in mainComments)
+            {
+                AddWithReplies(main, allCommentsForBlog, allRelatedComments);
+            }
+
+            return PartialView("PartialComment", allRelatedComments);
+        }
+
+        private void AddWithReplies(
+            GülBlogMVC5.Models.TBLCOMMENT comment,
+            List<GülBlogMVC5.Models.TBLCOMMENT> allComments,
+            List<GülBlogMVC5.Models.TBLCOMMENT> result)
+        {
+            result.Add(comment);
+
+            var replies = allComments.Where(x => x.USTID == comment.ID).ToList();
+
+            foreach (var reply in replies)
+            {
+                AddWithReplies(reply, allComments, result);
+            }
         }
     }
 }

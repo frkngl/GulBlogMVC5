@@ -80,5 +80,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TBLCOMMENT">
+      <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLCOMMENT">
+        <MappingFragment StoreEntitySet="TBLCOMMENT">
+          <ScalarProperty Name="USTID" ColumnName="USTID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+          <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+          <ScalarProperty Name="BLOGID" ColumnName="BLOGID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

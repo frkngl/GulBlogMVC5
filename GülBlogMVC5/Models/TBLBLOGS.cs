@@ -14,6 +14,12 @@ namespace GülBlogMVC5.Models
     
     public partial class TBLBLOGS
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBLBLOGS()
+        {
+            this.TBLCOMMENT = new HashSet<TBLCOMMENT>();
+        }
+    
         public int ID { get; set; }
         public string BLOGTITLE { get; set; }
         public string BLOGDES { get; set; }
@@ -27,5 +33,7 @@ namespace GülBlogMVC5.Models
     
         public virtual TBLCATEGORY TBLCATEGORY { get; set; }
         public virtual TBLUSERS TBLUSERS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLCOMMENT> TBLCOMMENT { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace GülBlogMVC5.Models
         public TBLUSERS()
         {
             this.TBLBLOGS = new HashSet<TBLBLOGS>();
+            this.TBLCOMMENT = new HashSet<TBLCOMMENT>();
         }
     
         public int ID { get; set; }
@@ -35,5 +36,7 @@ namespace GülBlogMVC5.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBLBLOGS> TBLBLOGS { get; set; }
         public virtual TBLROLE TBLROLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLCOMMENT> TBLCOMMENT { get; set; }
     }
 }

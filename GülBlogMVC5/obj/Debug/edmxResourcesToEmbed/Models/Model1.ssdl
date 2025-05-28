@@ -34,6 +34,18 @@
     <Property Name="STATUS" Type="bit" />
     <Property Name="SLUG" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="TBLCOMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERID" Type="int" />
+    <Property Name="BLOGID" Type="int" />
+    <Property Name="COMMENT" Type="nvarchar(max)" />
+    <Property Name="DATE" Type="datetime" />
+    <Property Name="STATUS" Type="bit" />
+    <Property Name="USTID" Type="int" />
+  </EntityType>
   <EntityType Name="TBLCONTACT">
     <Key>
       <PropertyRef Name="ID" />
@@ -97,6 +109,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TBLCOMMENT_TBLBLOGS">
+    <End Role="TBLBLOGS" Type="Self.TBLBLOGS" Multiplicity="0..1" />
+    <End Role="TBLCOMMENT" Type="Self.TBLCOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLBLOGS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLCOMMENT">
+        <PropertyRef Name="BLOGID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLCOMMENT_TBLUSERS">
+    <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="0..1" />
+    <End Role="TBLCOMMENT" Type="Self.TBLCOMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUSERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBLCOMMENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TBLUSERS_TBLROLE">
     <End Role="TBLROLE" Type="Self.TBLROLE" Multiplicity="0..1" />
     <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="*" />
@@ -113,6 +149,7 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLBLOGS" EntityType="Self.TBLBLOGS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLCOMMENT" EntityType="Self.TBLCOMMENT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLCONTACT" EntityType="Self.TBLCONTACT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLROLE" EntityType="Self.TBLROLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TBLUSERS" EntityType="Self.TBLUSERS" Schema="dbo" store:Type="Tables" />
@@ -123,6 +160,14 @@
     <AssociationSet Name="FK_TBLBLOGS_TBLUSERS" Association="Self.FK_TBLBLOGS_TBLUSERS">
       <End Role="TBLUSERS" EntitySet="TBLUSERS" />
       <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLCOMMENT_TBLBLOGS" Association="Self.FK_TBLCOMMENT_TBLBLOGS">
+      <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+      <End Role="TBLCOMMENT" EntitySet="TBLCOMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLCOMMENT_TBLUSERS" Association="Self.FK_TBLCOMMENT_TBLUSERS">
+      <End Role="TBLUSERS" EntitySet="TBLUSERS" />
+      <End Role="TBLCOMMENT" EntitySet="TBLCOMMENT" />
     </AssociationSet>
     <AssociationSet Name="FK_TBLUSERS_TBLROLE" Association="Self.FK_TBLUSERS_TBLROLE">
       <End Role="TBLROLE" EntitySet="TBLROLE" />

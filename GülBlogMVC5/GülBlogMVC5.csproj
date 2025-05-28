@@ -153,6 +153,9 @@
     <Compile Include="Models\TBLCATEGORY.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBLCOMMENT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBLCONTACT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -870,6 +873,7 @@
     <Content Include="Views\Blogs\Detail.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Blogs\useCategory.cshtml" />
+    <Content Include="Views\Blogs\PartialComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

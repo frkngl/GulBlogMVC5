@@ -39,6 +39,18 @@
           <Property Name="STATUS" Type="bit" />
           <Property Name="SLUG" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="TBLCOMMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="BLOGID" Type="int" />
+          <Property Name="COMMENT" Type="nvarchar(max)" />
+          <Property Name="DATE" Type="datetime" />
+          <Property Name="STATUS" Type="bit" />
+          <Property Name="USTID" Type="int" />
+        </EntityType>
         <EntityType Name="TBLCONTACT">
           <Key>
             <PropertyRef Name="ID" />
@@ -102,6 +114,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLCOMMENT_TBLBLOGS">
+          <End Role="TBLBLOGS" Type="Self.TBLBLOGS" Multiplicity="0..1" />
+          <End Role="TBLCOMMENT" Type="Self.TBLCOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLBLOGS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLCOMMENT">
+              <PropertyRef Name="BLOGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLCOMMENT_TBLUSERS">
+          <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="0..1" />
+          <End Role="TBLCOMMENT" Type="Self.TBLCOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLCOMMENT">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLUSERS_TBLROLE">
           <End Role="TBLROLE" Type="Self.TBLROLE" Multiplicity="0..1" />
           <End Role="TBLUSERS" Type="Self.TBLUSERS" Multiplicity="*" />
@@ -118,6 +154,7 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLBLOGS" EntityType="Self.TBLBLOGS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLCATEGORY" EntityType="Self.TBLCATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLCOMMENT" EntityType="Self.TBLCOMMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLCONTACT" EntityType="Self.TBLCONTACT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLROLE" EntityType="Self.TBLROLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBLUSERS" EntityType="Self.TBLUSERS" Schema="dbo" store:Type="Tables" />
@@ -128,6 +165,14 @@
           <AssociationSet Name="FK_TBLBLOGS_TBLUSERS" Association="Self.FK_TBLBLOGS_TBLUSERS">
             <End Role="TBLUSERS" EntitySet="TBLUSERS" />
             <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLCOMMENT_TBLBLOGS" Association="Self.FK_TBLCOMMENT_TBLBLOGS">
+            <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+            <End Role="TBLCOMMENT" EntitySet="TBLCOMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLCOMMENT_TBLUSERS" Association="Self.FK_TBLCOMMENT_TBLUSERS">
+            <End Role="TBLUSERS" EntitySet="TBLUSERS" />
+            <End Role="TBLCOMMENT" EntitySet="TBLCOMMENT" />
           </AssociationSet>
           <AssociationSet Name="FK_TBLUSERS_TBLROLE" Association="Self.FK_TBLUSERS_TBLROLE">
             <End Role="TBLROLE" EntitySet="TBLROLE" />
@@ -157,6 +202,15 @@
             <End Role="TBLROLE" EntitySet="TBLROLE" />
             <End Role="TBLUSERS" EntitySet="TBLUSERS" />
           </AssociationSet>
+          <EntitySet Name="TBLCOMMENT" EntityType="GulBlogMVC5Model.TBLCOMMENT" />
+          <AssociationSet Name="FK_TBLCOMMENT_TBLBLOGS" Association="GulBlogMVC5Model.FK_TBLCOMMENT_TBLBLOGS">
+            <End Role="TBLBLOGS" EntitySet="TBLBLOGS" />
+            <End Role="TBLCOMMENT" EntitySet="TBLCOMMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLCOMMENT_TBLUSERS" Association="GulBlogMVC5Model.FK_TBLCOMMENT_TBLUSERS">
+            <End Role="TBLUSERS" EntitySet="TBLUSERS" />
+            <End Role="TBLCOMMENT" EntitySet="TBLCOMMENT" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -184,6 +238,7 @@
           <NavigationProperty Name="TBLCATEGORY" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLCATEGORY" FromRole="TBLBLOGS" ToRole="TBLCATEGORY" />
           <NavigationProperty Name="TBLUSERS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLBLOGS" ToRole="TBLUSERS" />
           <Property Name="VIEWS" Type="Int32" />
+          <NavigationProperty Name="TBLCOMMENT" Relationship="GulBlogMVC5Model.FK_TBLCOMMENT_TBLBLOGS" FromRole="TBLBLOGS" ToRole="TBLCOMMENT" />
         </EntityType>
         <EntityType Name="TBLCATEGORY">
           <Key>
@@ -236,6 +291,7 @@
           <Property Name="SLUG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLBLOGS_TBLUSERS" FromRole="TBLUSERS" ToRole="TBLBLOGS" />
           <NavigationProperty Name="TBLROLE" Relationship="GulBlogMVC5Model.FK_TBLUSERS_TBLROLE" FromRole="TBLUSERS" ToRole="TBLROLE" />
+          <NavigationProperty Name="TBLCOMMENT" Relationship="GulBlogMVC5Model.FK_TBLCOMMENT_TBLUSERS" FromRole="TBLUSERS" ToRole="TBLCOMMENT" />
         </EntityType>
         <Association Name="FK_TBLBLOGS_TBLCATEGORY">
           <End Type="GulBlogMVC5Model.TBLCATEGORY" Role="TBLCATEGORY" Multiplicity="0..1" />
@@ -270,6 +326,44 @@
             </Principal>
             <Dependent Role="TBLUSERS">
               <PropertyRef Name="ROLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TBLCOMMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="BLOGID" Type="Int32" />
+          <Property Name="COMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="USTID" Type="Int32" />
+          <NavigationProperty Name="TBLBLOGS" Relationship="GulBlogMVC5Model.FK_TBLCOMMENT_TBLBLOGS" FromRole="TBLCOMMENT" ToRole="TBLBLOGS" />
+          <NavigationProperty Name="TBLUSERS" Relationship="GulBlogMVC5Model.FK_TBLCOMMENT_TBLUSERS" FromRole="TBLCOMMENT" ToRole="TBLUSERS" />
+        </EntityType>
+        <Association Name="FK_TBLCOMMENT_TBLBLOGS">
+          <End Type="GulBlogMVC5Model.TBLBLOGS" Role="TBLBLOGS" Multiplicity="0..1" />
+          <End Type="GulBlogMVC5Model.TBLCOMMENT" Role="TBLCOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLBLOGS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLCOMMENT">
+              <PropertyRef Name="BLOGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLCOMMENT_TBLUSERS">
+          <End Type="GulBlogMVC5Model.TBLUSERS" Role="TBLUSERS" Multiplicity="0..1" />
+          <End Type="GulBlogMVC5Model.TBLCOMMENT" Role="TBLCOMMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUSERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLCOMMENT">
+              <PropertyRef Name="USERID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -354,6 +448,19 @@
                 <ScalarProperty Name="PICTURE" ColumnName="PICTURE" />
                 <ScalarProperty Name="PASS" ColumnName="PASS" />
                 <ScalarProperty Name="NAMEANDSURNAME" ColumnName="NAMEANDSURNAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLCOMMENT">
+            <EntityTypeMapping TypeName="GulBlogMVC5Model.TBLCOMMENT">
+              <MappingFragment StoreEntitySet="TBLCOMMENT">
+                <ScalarProperty Name="USTID" ColumnName="USTID" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="BLOGID" ColumnName="BLOGID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

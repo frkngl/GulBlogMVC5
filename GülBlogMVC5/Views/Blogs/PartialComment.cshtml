@@ -1,0 +1,72 @@
+﻿@model List<GülBlogMVC5.Models.TBLCOMMENT>
+
+@{
+    var lookup = Model
+        .GroupBy(x => x.USTID)
+        .ToDictionary(g => g.Key ?? 0, g => g.ToList());
+
+    var allComments = Model.ToDictionary(x => x.ID);
+}
+
+@RenderComments(lookup, 0, allComments)
+
+@helper RenderComments(
+    Dictionary<int, List<GülBlogMVC5.Models.TBLCOMMENT>> commentLookup,
+    int parentId,
+    Dictionary<int, GülBlogMVC5.Models.TBLCOMMENT> allComments)
+{
+    if (commentLookup.ContainsKey(parentId))
+    {
+        foreach (var comment in commentLookup[parentId])
+        {
+            <div class="comment-list @(comment.USTID != null ? "left-padding" : "")" data-ustid="@(comment.USTID ?? 0)">
+                <div class="single-comment justify-content-between d-flex">
+                    <div class="user justify-content-between d-flex">
+                        <div class="thumb">
+                            <img style="width:60px; height:60px; object-fit:cover;" src="~/img/@comment.TBLUSERS.PICTURE">
+                        </div>
+                        <div class="desc">
+                            @if (comment.USTID != null && allComments.ContainsKey(comment.USTID.Value))
+                            {
+                                var parentComment = allComments[comment.USTID.Value];
+                                <div class="reply-info" style="font-size: 12px; color: #666;">
+                                    <i class="fa fa-reply"></i>
+                                    <strong>@comment.TBLUSERS.NAMEANDSURNAME</strong>,
+                                    <strong>@parentComment.TBLUSERS.NAMEANDSURNAME</strong> kişisine cevap verdi
+                                </div>
+                            }
+
+                            <h5><a href="#">@comment.TBLUSERS.NAMEANDSURNAME</a></h5>
+                            <p style="margin-bottom:0px;" class="date">@TimeAgo(comment.DATE.Value)</p>
+                            <p class="comment">@comment.COMMENT</p>
+                        </div>
+                    </div>
+                    <div class="reply-btn">
+                        <a href="#" class="btn-reply text-uppercase" data-id="@comment.ID">reply</a>
+                    </div>
+                </div>
+            </div>
+
+            @RenderComments(commentLookup, comment.ID, allComments)
+        }
+    }
+}
+
+@functions {
+    public static string TimeAgo(DateTime dateTime)
+    {
+        var timeSpan = DateTime.Now - dateTime;
+
+        if (timeSpan.TotalSeconds < 60)
+            return "az önce";
+        if (timeSpan.TotalMinutes < 60)
+            return $"{(int)timeSpan.TotalMinutes} dakika önce";
+        if (timeSpan.TotalHours < 24)
+            return $"{(int)timeSpan.TotalHours} saat önce";
+        if (timeSpan.TotalDays < 30)
+            return $"{(int)timeSpan.TotalDays} gün önce";
+        if (timeSpan.TotalDays < 365)
+            return $"{(int)(timeSpan.TotalDays / 30)} ay önce";
+        return $"{(int)(timeSpan.TotalDays / 365)} yıl önce";
+    }
+}

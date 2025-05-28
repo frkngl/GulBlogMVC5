@@ -31,5 +31,6 @@ namespace GülBlogMVC5.Models
         public virtual DbSet<TBLCONTACT> TBLCONTACT { get; set; }
         public virtual DbSet<TBLROLE> TBLROLE { get; set; }
         public virtual DbSet<TBLUSERS> TBLUSERS { get; set; }
+        public virtual DbSet<TBLCOMMENT> TBLCOMMENT { get; set; }
     }
 }

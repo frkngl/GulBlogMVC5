@@ -7,6 +7,7 @@ namespace GülBlogMVC5.Models
 {
     public class BlogPreviewViewModel
     {
+        public int ID { get; set; }
         public string BLOGTITLE { get; set; }
         public int CATEGORYID { get; set; }
         public string CATEGORYSEOURL { get; set; }
@@ -20,6 +21,7 @@ namespace GülBlogMVC5.Models
         public string TWITTER { get; set; }
         public string INSTAGRAM { get; set; }
         public int VIEWS { get; set; }
+        public int COMMENTCOUNT { get; set; }
         public DateTime? DATE { get; set; }
     }
 }
